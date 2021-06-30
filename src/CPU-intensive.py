@@ -1,6 +1,4 @@
 import math
-
-
 def cpu_intensive_operation():
     """
     This function is supposed to mock a CPU intensive job
