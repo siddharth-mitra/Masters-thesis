@@ -9,7 +9,7 @@ spec:
     minReplicas: 1
     triton:
       storageUri: gs://kfserving-examples/models/torchscript
-      runtimeVersion: 20.10-py3
+      runtimeVersion: "1.14.0-gpu"
       env:
       - name: OMP_NUM_THREADS
         value: "1"
