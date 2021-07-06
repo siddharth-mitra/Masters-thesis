@@ -1,10 +1,18 @@
-apiVersion: "serving.kubeflow.org/v1alpha2"
-kind: "InferenceService"
+apiVersion: serving.kubeflow.org/v1beta1
+kind: InferenceService
 metadata:
-  name: "sklearn-iris"
+  name: torchscript-cifar10
+  annotations:
+    "serving.kubeflow.org/gke-accelerator": "nvidia-tesla-p100"
 spec:
-  default:
-    parallelism: 8 # CC=8
-    predictor:
-      sklearn:
-        storageUri: "gs://kfserving-samples/models/sklearn/iris"
+  predictor:
+    minReplicas: 1
+    triton:
+      storageUri: gs://kfserving-examples/models/torchscript
+      runtimeVersion: 20.10-py3
+      env:
+      - name: OMP_NUM_THREADS
+        value: "1"
+      resources:
+        limits:
+          nvidia.com/gpu: 1
