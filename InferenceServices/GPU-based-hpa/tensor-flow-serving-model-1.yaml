@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name:  fast-style-transfer-serving
+  labels:
+    app: tensorflow-serving
+spec:
+  ports:
+    - name: http-serving
+      port: 5000
+      targetPort: 5000
+  selector:
+    app: tensorflow-serving
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fast-style-transfer-serving
+  labels:
+    app: tensorflow-serving
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tensorflow-serving
+  template:
+    metadata:
+      labels:
+        app: tensorflow-serving
+    spec:
+      containers:
+        - name: serving
+          image: "registry.cn-hangzhou.aliyuncs.com/tensorflow-samples/fast-style-transfer-serving:la_muse"
+          command: ["python", "app.py"]
+          resources:
+            limits:
+              nvidia.com/gpu: 1

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: adapter-config
+  namespace: kfserving-monitoring
+data:
+  config.yaml: |
+    rules:
+    - seriesQuery: 'DCGM_FI_DEV_GPU_UTIL'
+      resources:
+        overrides:
+          kubernetes_namespace:
+            resource: namespace
+          kubernetes_pod_name:
+            resource: pod
+      name:
+        matches: "^(.*)_UTIL"
+        as: "${1}_METRIC"
+      metricsQuery: (sum(rate(<<.Series>>{<<.LabelMatchers>>, container_name!="POD"}[1m])) by (<<.GroupBy>>))

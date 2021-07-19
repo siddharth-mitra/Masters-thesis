@@ -1,35 +1,18 @@
-# Service targeting pod running triton model server with torchscript-cifar10
-apiVersion: v1
-kind: Service
-metadata:
-  name: torchscript-gpu-metrics-service
-  labels:
-    app: torchscript-cifar10-predictor-default-00001
-spec:
-  ports:
-  - name: gpu_metrics # expose metrics port
-    port: 8002
-    targetPort: 8002
-    protocol: TCP
-  selector:
-    matchLabels:
-      app: torchscript-cifar10-predictor-default-00001 # target kfserving pods serving torchscript-cifar10
----
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: torchscript-gpu-metrics-servicemonitor
-  # Change this to the namespace the Prometheus instance is running in
-  namespace: kfserving-monitoring
+  name: gpu-metrics-servicemonitor
   labels:
-    app: torchscript-cifar10-predictor-default-00001
-    release: prometheus
+    app: prometheus
+  namespace: kfserving-monitoring
 spec:
   namespaceSelector:
     any: true
   selector:
     matchLabels:
-      app: torchscript-cifar10-predictor-default-00001
+      app.kubernetes.io/name: "dcgm-exporter"
+      app.kubernetes.io/version: "2.1.1"
   endpoints:
-  - port: gpu_metrics
+  - port: metrics
+    path: '/metrics'
     interval: 15s

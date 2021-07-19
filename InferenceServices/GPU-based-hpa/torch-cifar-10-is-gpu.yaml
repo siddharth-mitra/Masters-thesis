@@ -1,0 +1,22 @@
+apiVersion: serving.kubeflow.org/v1beta1
+kind: InferenceService
+metadata:
+  name: torchscript-cifar10
+  annotations:
+    serving.kubeflow.org/gke-accelerator: "nvidia-tesla-p100"
+    autoscaling.knative.dev/class: "hpa.autoscaling.knative.dev"
+    autoscaling.knative.dev/metricSourceType: "pod"
+    autoscaling.knative.dev/targetValue: "40"
+    autoscaling.knative.dev/metricName: "DCGM_FI_DEV_GPU_UTIL_METRIC"
+spec:
+  predictor:
+    minReplicas: 1
+    triton:
+      storageUri: gs://kfserving-examples/models/torchscript
+      runtimeVersion: 20.10-py3
+      env:
+      - name: OMP_NUM_THREADS
+        value: "1"
+      resources:
+        limits:
+          nvidia.com/gpu: 1

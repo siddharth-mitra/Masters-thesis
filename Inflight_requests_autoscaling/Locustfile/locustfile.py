@@ -6,7 +6,7 @@ from locust import HttpUser, task, between
 
 
 class QuickstartUser(HttpUser):
-    wait_time = between(1, 2.5)
+    wait_time = between(1, 1.5)
 
     @task
     def hello_world(self):
@@ -22,4 +22,5 @@ class QuickstartUser(HttpUser):
             else:
                 print(response.status_code)
                 response.failure("failure text")
+
 
