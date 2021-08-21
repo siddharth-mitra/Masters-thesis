@@ -3,7 +3,7 @@ kind: "InferenceService"
 metadata:
   name: "flowers-sample-gpu"
   annotations:
-    "autoscaling.knative.dev/target": "5"
+    "autoscaling.knative.dev/target": "1"
     "serving.kubeflow.org/gke-accelerator": "nvidia-tesla-p100"
 spec:
   predictor:
