@@ -11,7 +11,7 @@ spec:
   predictor:
     minReplicas: 1
     maxReplicas: 6
-    tensorflow:
+    sklearn:
       storageUri: "gs://seldon-models/v1.11.0-dev/sklearn/iris"
       runtimeVersion: "1.14.0-gpu"
       resources:
