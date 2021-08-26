@@ -2,11 +2,11 @@
 import requests
 
 # defining the api-endpoint
-API_ENDPOINT = "http://34.90.165.158:80/v1/models/flowers-sample-gpu:predict"
+API_ENDPOINT = "http://35.204.9.175:80/v1/models/flowers-sample-gpu:predict"
 
 # your source code here
 headers_t = {
-            'host': "flowers-sample-gpu.experiment1.example.com",
+            'host': "flowers-sample-gpu.default.example.com",
             'content-type': "application/json",
             'cache-control': "no-cache"
         }
