@@ -7,8 +7,8 @@ from prometheus_client.core import GaugeMetricFamily, CounterMetricFamily, REGIS
 
 def get_gpu_utilization():
     gpu_utilization = []
-    api_endpoint = "http://localhost:9090/api/v1/query"
-    response = requests.get(api_endpoint, params={'query': 'DCGM_FI_DEV_GPU_UTIL'})
+    api_endpoint = "http://prometheus-operated.kfserving-monitoring:9090/api/v1/query"
+    response = requests.get(api_endpoint, params={'query': 'DCGM_FI_DEV_MEM_COPY_UTIL'})
     results = response.json()['data']['result']
     for result in results:
         gpu_utilization.append(result['value'][1])
@@ -50,6 +50,7 @@ if __name__ == '__main__':
     start_http_server(8000)
     REGISTRY.register(CustomCollector())
     while True:
+        print("hello")
         time.sleep(1)
 
 

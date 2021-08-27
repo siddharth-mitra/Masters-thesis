@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: "prometheus-custom-exporter"
-        image: sidmit/custom-exporter-gpu-metric:4.0
+        image: sidmit/custom-exporter-gpu-metric:11.0
         securityContext:
           privileged: true
         ports:
