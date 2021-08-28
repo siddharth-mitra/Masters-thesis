@@ -5,7 +5,7 @@ metadata:
   annotations:
     "autoscaling.knative.dev/class": "hpa.autoscaling.knative.dev"
     "autoscaling.knative.dev/metric": "gpu"
-    "autoscaling.knative.dev/target": "8"
+    "autoscaling.knative.dev/target": "7"
     "serving.kubeflow.org/gke-accelerator": "nvidia-tesla-p100"
 spec:
   predictor:
